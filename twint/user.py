@@ -48,11 +48,11 @@ def User(ur):
 
     _usr.is_private = ur['data']['user']['legacy']['protected']
     _usr.is_verified = ur['data']['user']['legacy']['verified']
-    try ur['data']['user']['legacy']['profile_image_url_https']:
+    try:
         _usr.avatar = ur['data']['user']['legacy']['profile_image_url_https']
     except:
         _usr.avatar = None
-    try ur['data']['user']['legacy']['profile_banner_url']:
+    try:
         _usr.background_image = ur['data']['user']['legacy']['profile_banner_url']
     except:
         _usr.background_image = None
