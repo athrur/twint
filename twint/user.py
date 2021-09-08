@@ -28,7 +28,7 @@ def User(ur):
     _usr.username = ur['data']['user']['legacy']['screen_name']
     _usr.bio = ur['data']['user']['legacy']['description']
     _usr.location = ur['data']['user']['legacy']['location']
-    if _usr.url:
+    if ur['data']['user']['legacy']['url']:
         _usr.url = ur['data']['user']['legacy']['url']
     else:
         _usr.url = None
