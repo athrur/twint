@@ -1,5 +1,6 @@
 import logging as logme
 
+
 def Tweet(config, t):
     if config.Format:
         logme.debug(__name__+':Tweet:Format')
@@ -55,6 +56,7 @@ def Tweet(config, t):
             output += f" {t.translate} {t.trans_src} {t.trans_dest}"
     return output
 
+
 def User(_format, u):
     if _format:
         logme.debug(__name__+':User:Format')
@@ -73,7 +75,10 @@ def User(_format, u):
         output = output.replace("{media}", str(u.media_count))
         output = output.replace("{private}", str(u.is_private))
         output = output.replace("{verified}", str(u.is_verified))
-        output = output.replace("{avatar}", u.avatar)
+        if u.avatar:
+            output = output.replace("{avatar}", u.avatar)
+        else:
+            output = output.replace("{avatar}", "")
         if u.background_image:
             output = output.replace("{background_image}", u.background_image)
         else:
