@@ -76,6 +76,7 @@ def getText(tw):
 def Tweet(tw, config):
     """Create Tweet object
     """
+    print(tw)
     logme.debug(__name__ + ':Tweet')
     t = tweet()
     t.id = int(tw['id_str'])
