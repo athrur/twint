@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 import logging as logme
 from googletransx import Translator
-# ref. 
+# ref.
 # - https://github.com/x0rzkov/py-googletrans#basic-usage
 translator = Translator()
 
@@ -118,7 +118,8 @@ def Tweet(tw, config):
     t.tweet = getText(tw)
     t.lang = tw['lang']
     try:
-        t.hashtags = [hashtag['text'] for hashtag in tw['entities']['hashtags']]
+        t.hashtags = [hashtag['text']
+                      for hashtag in tw['entities']['hashtags']]
     except KeyError:
         t.hashtags = []
     try:
@@ -149,7 +150,10 @@ def Tweet(tw, config):
         t.quote_url = 0
     t.near = config.Near if config.Near else ""
     t.geo = config.Geo if config.Geo else ""
-    t.source = config.Source if config.Source else ""
+    try:
+        t.source = tw['source']
+    except KeyError:
+        t.source = config.Source if config.Source else ""
     t.translate = ''
     t.trans_src = ''
     t.trans_dest = ''
@@ -162,5 +166,6 @@ def Tweet(tw, config):
         # ref. https://github.com/SuniTheFish/ChainTranslator/blob/master/ChainTranslator/__main__.py#L31
         except ValueError as e:
             logme.debug(__name__ + ':Tweet:translator.translate:' + str(e))
-            raise Exception("Invalid destination language: {} / Tweet: {}".format(config.TranslateDest, t.tweet))
+            raise Exception(
+                "Invalid destination language: {} / Tweet: {}".format(config.TranslateDest, t.tweet))
     return t
