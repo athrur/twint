@@ -1,5 +1,6 @@
 from time import strftime, localtime
 from datetime import datetime, timezone
+import re
 
 import logging as logme
 from googletransx import Translator
@@ -76,7 +77,6 @@ def getText(tw):
 def Tweet(tw, config):
     """Create Tweet object
     """
-    print(tw)
     logme.debug(__name__ + ':Tweet')
     t = tweet()
     t.id = int(tw['id_str'])
@@ -152,10 +152,9 @@ def Tweet(tw, config):
     t.near = config.Near if config.Near else ""
     t.geo = config.Geo if config.Geo else ""
     try:
-        t.source = tw['source']
-        print(t.source)
+        t.source = re.sub(r'<.*?>', '', tw['source'])
+
     except KeyError:
-        print("Error")
         t.source = ""
     t.translate = ''
     t.trans_src = ''
