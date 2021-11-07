@@ -153,8 +153,10 @@ def Tweet(tw, config):
     t.geo = config.Geo if config.Geo else ""
     try:
         t.source = tw['source']
+        print(t.source)
     except KeyError:
-        t.source = config.Source if config.Source else ""
+        print("Error")
+        t.source = ""
     t.translate = ''
     t.trans_src = ''
     t.trans_dest = ''
